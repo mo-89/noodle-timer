@@ -2,6 +2,7 @@
   "use strict";
 
   const DURATION_MS = 180 * 1000; // 3分固定
+  const APP_TITLE = "カップ麺タイマー";
 
   const timeEl = document.getElementById("time");
   const statusEl = document.getElementById("status");
@@ -37,8 +38,10 @@
 
   function render() {
     const remaining = remainingMs();
-    timeEl.textContent = formatTime(remaining);
+    const formatted = formatTime(remaining);
+    timeEl.textContent = formatted;
     timeEl.classList.toggle("finished", finished);
+    document.title = `${formatted} ${APP_TITLE}`;
 
     if (finished) {
       statusEl.textContent = alarmPlaying ? "できあがり!(音を止める)" : "できあがり!";
