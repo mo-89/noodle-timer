@@ -8,6 +8,14 @@
 # コミットするたびに、Service Worker のキャッシュが自動的に
 # 新しいキャッシュストレージへ切り替わる(古いキャッシュは sw.js の
 # activate イベントで削除される)。
+#
+# 注意: このフックは `git config core.hooksPath .githooks` を実行した
+# リポジトリでのみ有効(ローカルgit設定のため)。新しくクローンした
+# 環境やCI/Cloudflare Pagesのビルド環境では自動的には有効にならない。
+# 有効化を忘れてキャッシュ対象ファイルをコミットすると CACHE_NAME が
+# 更新されず、デプロイしてもクライアント側のキャッシュが古いままに
+# なる可能性がある。詳細は README.md の
+# 「Service Workerのキャッシュ更新について」を参照。
 set -e
 
 cd "$(git rev-parse --show-toplevel)"

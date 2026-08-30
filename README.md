@@ -31,6 +31,8 @@ git config core.hooksPath .githooks
 
 これにより、キャッシュ対象ファイル(`index.html` / `style.css` / `script.js` / `manifest.json` / アイコン類)を変更してコミットするたびに、`.githooks/pre-commit` が `CACHE_NAME` を自動更新します。デプロイ(Cloudflare Pagesのgit連携)のたびに新しいキャッシュストレージが使われ、`activate` イベントで古いキャッシュが削除されるため、ユーザーは常に最新のファイルを受け取れます。
 
+**注意:** `core.hooksPath` はリポジトリごとのローカルgit設定です。新しくクローンした環境やCI/Cloudflare Pagesのビルド環境では自動的には有効になりません。上記コマンドを実行し忘れてキャッシュ対象ファイルをコミットすると、`CACHE_NAME` が更新されずデプロイしてもクライアント側のキャッシュが更新されない可能性があります。
+
 ## ローカルでの確認方法
 
 ビルド不要ですが、`file://` で直接開くと Service Worker が動かないため、簡易サーバーで確認してください。

@@ -1,5 +1,8 @@
 // この行は .githooks/pre-commit によってコミット時に自動更新される
 // (日付 + キャッシュ対象ファイルのハッシュ)。手動で書き換える必要はない。
+// ただしこのフックは `git config core.hooksPath .githooks` を実行した
+// リポジトリでのみ有効(新規クローンやCI環境では要手動有効化。詳細は
+// .githooks/pre-commit と README.md 参照)。
 const CACHE_NAME = "noodle-timer-v20260830-0d1fb5d232";
 const ASSETS = [
   "./",
