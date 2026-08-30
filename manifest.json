@@ -2,7 +2,7 @@
   "name": "カップ麺タイマー",
   "short_name": "麺タイマー",
   "description": "開いた瞬間から自動で始まる、カップ麺用の3分固定タイマー",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

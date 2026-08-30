@@ -1,7 +1,6 @@
-const CACHE_NAME = "noodle-timer-v2";
+const CACHE_NAME = "noodle-timer-v3";
 const ASSETS = [
   "./",
-  "./index.html",
   "./style.css",
   "./script.js",
   "./manifest.json",
@@ -38,9 +37,14 @@ self.addEventListener("fetch", (event) => {
       return (
         cached ||
         fetch(event.request).then((res) => {
-          const copy = res.clone();
+          // Safari refuses to use a redirected Response for navigation
+          // requests ("Response served by service worker has
+          // redirections"), so strip the redirect flag before caching
+          // or returning it.
+          const clean = res.redirected ? new Response(res.body, res) : res;
+          const copy = clean.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-          return res;
+          return clean;
         }).catch(() => cached)
       );
     })
