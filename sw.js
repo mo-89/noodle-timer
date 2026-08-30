@@ -1,10 +1,13 @@
-const CACHE_NAME = "noodle-timer-v1";
+const CACHE_NAME = "noodle-timer-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./style.css",
   "./script.js",
   "./manifest.json",
+  "./favicon.ico",
+  "./apple-touch-icon.png",
+  "./apple-touch-icon-precomposed.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png",
