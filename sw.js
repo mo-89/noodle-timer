@@ -1,4 +1,6 @@
-const CACHE_NAME = "noodle-timer-v3";
+// この行は .githooks/pre-commit によってコミット時に自動更新される
+// (日付 + キャッシュ対象ファイルのハッシュ)。手動で書き換える必要はない。
+const CACHE_NAME = "noodle-timer-v20260830-0d1fb5d232";
 const ASSETS = [
   "./",
   "./style.css",

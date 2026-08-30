@@ -19,6 +19,18 @@ sw.js           オフライン表示用の簡易Service Worker
 icons/          アプリアイコン(192px, 512px, iOS用180px)
 ```
 
+## Service Workerのキャッシュ更新について
+
+`sw.js` の `CACHE_NAME` はキャッシュ対象ファイルの内容から自動生成される「日付-ハッシュ」形式のバージョン文字列です。手動で書き換える必要はありません。
+
+初回クローン後、以下のコマンドを一度だけ実行してgitフックを有効化してください。
+
+```bash
+git config core.hooksPath .githooks
+```
+
+これにより、キャッシュ対象ファイル(`index.html` / `style.css` / `script.js` / `manifest.json` / アイコン類)を変更してコミットするたびに、`.githooks/pre-commit` が `CACHE_NAME` を自動更新します。デプロイ(Cloudflare Pagesのgit連携)のたびに新しいキャッシュストレージが使われ、`activate` イベントで古いキャッシュが削除されるため、ユーザーは常に最新のファイルを受け取れます。
+
 ## ローカルでの確認方法
 
 ビルド不要ですが、`file://` で直接開くと Service Worker が動かないため、簡易サーバーで確認してください。
