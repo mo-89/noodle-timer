@@ -6,23 +6,19 @@
 
   const timeEl = document.getElementById("time");
   const statusEl = document.getElementById("status");
-  const toggleBtn = document.getElementById("toggleBtn");
   const resetBtn = document.getElementById("resetBtn");
   const unlockSoundBtn = document.getElementById("unlockSoundBtn");
 
   // --- タイマー状態 ---
-  // running中は segmentStart からの経過時間を都度計算する。
-  // setIntervalの回数を数えるのではなく「開始時刻からの経過時間」を
-  // 毎回計算し直すことで、バックグラウンドやスリープでintervalが
-  // 間引かれても復帰時に正しい残り時間になる。
-  let accumulatedMs = 0;
-  let segmentStart = Date.now();
-  let running = true;
+  // 一時停止はできない仕様。開始時刻からの経過時間を毎回計算し直すことで、
+  // バックグラウンドやスリープでintervalが間引かれても復帰時に正しい
+  // 残り時間になる。
+  let startTime = Date.now();
   let finished = false;
   let alarmPlaying = false;
 
   function elapsedMs() {
-    return accumulatedMs + (running ? Date.now() - segmentStart : 0);
+    return Date.now() - startTime;
   }
 
   function remainingMs() {
@@ -44,14 +40,10 @@
     document.title = `${formatted} ${APP_TITLE}`;
 
     if (finished) {
-      statusEl.textContent = alarmPlaying ? "できあがり!(音を止める)" : "できあがり!";
-    } else if (running) {
-      statusEl.textContent = "カウントダウン中…";
+      statusEl.textContent = alarmPlaying ? "できあがり!(リセットで音を止められます)" : "できあがり!";
     } else {
-      statusEl.textContent = "一時停止中";
+      statusEl.textContent = "カウントダウン中…";
     }
-
-    toggleBtn.textContent = finished ? "音を止める" : (running ? "停止" : "再開");
   }
 
   function tick() {
@@ -62,40 +54,18 @@
   }
 
   function finish() {
-    accumulatedMs += Date.now() - segmentStart;
     finished = true;
-    running = false;
     startAlarm();
-    render();
-  }
-
-  function toggleRunning() {
-    if (finished) {
-      // 完了後はこのボタンでアラーム停止のみ行う
-      stopAlarm();
-      render();
-      return;
-    }
-    if (running) {
-      accumulatedMs += Date.now() - segmentStart;
-      running = false;
-    } else {
-      segmentStart = Date.now();
-      running = true;
-    }
     render();
   }
 
   function reset() {
     stopAlarm();
-    accumulatedMs = 0;
-    segmentStart = Date.now();
-    running = true;
+    startTime = Date.now();
     finished = false;
     render();
   }
 
-  toggleBtn.addEventListener("click", toggleRunning);
   resetBtn.addEventListener("click", reset);
 
   // 250ms間隔で再計算。バックグラウンドではブラウザに間引かれるが、

@@ -84,12 +84,6 @@ body {
   transform: scale(0.97);
 }
 
-.btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
 .btn-alert {
   margin-top: 20px;
   width: 100%;
