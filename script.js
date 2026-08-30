@@ -59,6 +59,7 @@
   }
 
   function finish() {
+    accumulatedMs += Date.now() - segmentStart;
     finished = true;
     running = false;
     startAlarm();
