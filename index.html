@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>カップ麺タイマー</title>
+<meta name="description" content="開いた瞬間から自動で始まる、カップ麺用の3分固定タイマー">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#fdf6ec">
+
+<!-- iOS home screen support -->
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="麺タイマー">
+
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="wrap">
+  <p class="label">カップ麺タイマー</p>
+
+  <div class="time" id="time" aria-live="polite">03:00</div>
+  <p class="status" id="status">カウントダウン中…</p>
+
+  <div class="controls">
+    <button id="toggleBtn" class="btn btn-primary" type="button">停止</button>
+    <button id="resetBtn" class="btn" type="button">リセット</button>
+  </div>
+
+  <button id="unlockSoundBtn" class="btn btn-alert" type="button" hidden>
+    🔔 タップして音を鳴らす
+  </button>
+
+  <p class="hint">はじめに画面を一度タップしておくと、通知音の再生が安定します。</p>
+</main>
+
+<div id="installHint" class="install-hint" hidden>
+  この画面を <span class="icon-inline">共有</span> ボタンから
+  「ホーム画面に追加」すると、アプリのように使えます。
+  <button id="installHintClose" type="button" aria-label="閉じる">×</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
